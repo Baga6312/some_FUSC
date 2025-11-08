@@ -1,8 +1,6 @@
 
 # FULLY UNDETECTABLE SHELLCODE 
 
-#### this repo is meant to be private . do not share any content here .
-
 
 ## prerequisites 
 - wine 
